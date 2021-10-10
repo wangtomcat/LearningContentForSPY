@@ -1,0 +1,219 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+li{
+  list-style: none;
+}
+.container{
+  width: 1200px;
+  margin: 0 auto;
+}
+.header-logo .container{
+  margin: 25px auto;
+  position: relative;
+}
+.logo-ipt{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.logo-ipt input{
+  width: 280px;
+  height: 30px;
+  margin: 5px 0;
+  border: 1px solid rgb(221, 221, 221);
+  background-color: rgb(237, 237, 237);
+}
+.logo-ipt img{
+  width: 20px;
+  height: 18px;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+.header-nav{
+  background-color: rgba(0,0,0, .8);
+  height: 60px;
+}
+.header-nav a{
+  color: #fff;
+}
+.header-nav li{
+  float: left;
+  width: 12.4%;
+  line-height: 60px;
+  text-align: center;
+  border-right: 1px solid rgb(83, 81, 81);
+}
+.header-nav li:last-child{
+  border-right:none;
+}
+.banner img{
+  width: 100%;
+}
+.company{
+  margin-bottom: 20px;
+  height: 260px;
+}
+.company .news{
+  width: 620px;
+  margin-right: 20px;
+}
+.company li a{
+  display: inline-block;
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+main a{
+  color: #333;
+}
+ h3{
+  margin: 30px 20px 30px;
+  font-weight: normal;
+  font-size: 20px;
+}
+.company a,span{
+  font-size: 14px;
+}
+.company span{
+  display: flex;
+  color: rgb(170, 170, 170);
+  float: right;
+}
+.company li::before{
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgb(126,126,126);
+  vertical-align: 8px;
+  
+}
+.news,.recruit,.history{
+  float: left;
+  height: 250px;
+}
+.history,.recruit{
+  width: 270px;
+  margin: 0 2px;
+  background-color: #eee;
+}
+.history .box,.recruit .box{
+  width: 260px;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+.history .box a{
+  display: flex;
+  width: 170px;
+  margin-bottom: 30px;
+}
+.history .box span{
+  display: block;
+  width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.recruit{
+  background-color: rgb(250,250,250);
+}
+.recruit .pic{
+  height: 118px;
+  position: relative;
+}
+.recruit img{
+  position: absolute;
+}
+.recruit .horse{
+  bottom: 0;
+  right: -20px;
+}
+.recruit .more{
+  left: 0;
+  top: 25px;
+}
+.market h3,.news h3{
+  margin: 30px 0;
+}
+.market li{
+  float: left;
+  margin-right: 53px;
+}
+.market li:last-child{
+  margin-right: 0;
+}
+.market img{
+  width: 260px;
+  margin-bottom: 10px;
+}
+.market a{
+  font-size: 14px;
+  display: flex;
+  width: 260px;
+}
+.market{
+  height: 300px;
+  margin-bottom: 30px;
+}
+.content{
+  height: 220px;
+  color: #666;
+  padding: 20px 0;
+  background-color: rgb(221, 221, 221);
+}
+.content p{
+  line-height: 40px;
+}
+.content ul{
+  width: 33.3%;
+  float: left;
+  border-top: 1px solid rgb(188, 188, 188);
+}
+.content li{
+ margin: 3px 0;
+}
+.content li:first-child{
+  margin: 20px 0 3px;
+}
+.product{
+  width: 600px;
+}
+.technology ul{
+  width: 200px;
+}
+.product,.technology,.map{
+  float: left;
+  margin-right: 50px;
+}
+.map,.map ul{
+  margin-right: 0;
+  width: 300px;
+}
+.map img{
+  width: 240px;
+  margin: 5px 30px;
+}
+.other{
+  padding: 30px 0 60px;
+}
+.other li{
+  color: rgb(170, 170, 170);
+  font-size: 14px;
+  display: block;
+  float: left;
+}
+.other-pic{
+  float: right;
+}
+.other ul:last-child{
+  float: right;
+  position: relative;
+}
