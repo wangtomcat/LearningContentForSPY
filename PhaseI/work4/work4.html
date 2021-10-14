@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      ul {
+        margin: 100px auto;
+        width: 1000px;
+        box-sizing: border-box;
+        text-align: center;
+        display: flex;
+        justify-content: flex-start;
+      }
+      li {
+        width: 100px;
+        height: 40px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+      }
+      .home {
+        border-bottom: 5px solid red;
+      }
+      .home li {
+        background-color: rgb(210, 210, 210);
+      }
+      .tab {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+        height: 50px;
+        align-items: flex-end;
+      }
+      .tab li {
+        height: 40px;
+        background-color: #eee;
+        border: 1px solid rgb(205, 205, 205);
+        border-bottom: none;
+      }
+      .tab li:hover {
+        background-color: #fff;
+        border-color: rgba(0, 0, 0, 0.7);
+        border-bottom: 1px solid #fff;
+        height: 50px;
+        align-self: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="home">
+      <li>home</li>
+      <li>home</li>
+      <li>home</li>
+      <li>home</li>
+      <li>home</li>
+      <li>home</li>
+    </ul>
+    <ul class="tab">
+      <li>tab one</li>
+      <li>tab one</li>
+      <li>tab one</li>
+      <li>tab one</li>
+    </ul>
+
+    <script>
+      let li = document.querySelector('.home').querySelectorAll('li');
+
+      for (var i = 0; i < li.length; i++) {
+        li[i].addEventListener('mouseenter', function () {
+          this.style.backgroundColor = 'red';
+          this.style.color = '#fff';
+          this.innerHTML = '首页';
+        });
+        li[i].addEventListener('mouseleave', function () {
+          this.style.backgroundColor = '';
+          this.style.color = '';
+          this.innerHTML = 'home';
+        });
+      }
+    </script>
+  </body>
+</html>
