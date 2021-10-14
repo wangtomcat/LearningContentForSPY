@@ -33,6 +33,23 @@
       }
       .home li {
         background-color: rgb(210, 210, 210);
+        display: block;
+      }
+      .home p {
+        display: block;
+        width: 100px;
+        line-height: 40px;
+      }
+      .home p:last-child {
+        background-color: red;
+        color: #fff;
+        display: none;
+      }
+      .home li:hover p:first-child {
+        display: none;
+      }
+      .home li:hover p:last-child {
+        display: block;
       }
       .tab {
         border-bottom: 1px solid rgba(0, 0, 0, 0.7);
@@ -56,12 +73,26 @@
   </head>
   <body>
     <ul class="home">
-      <li>home</li>
-      <li>home</li>
-      <li>home</li>
-      <li>home</li>
-      <li>home</li>
-      <li>home</li>
+      <li>
+        <p>home</p>
+        <p>首页</p>
+      </li>
+      <li>
+        <p>home</p>
+        <p>首页</p>
+      </li>
+      <li>
+        <p>home</p>
+        <p>首页</p>
+      </li>
+      <li>
+        <p>home</p>
+        <p>首页</p>
+      </li>
+      <li>
+        <p>home</p>
+        <p>首页</p>
+      </li>
     </ul>
     <ul class="tab">
       <li>tab one</li>
@@ -69,22 +100,5 @@
       <li>tab one</li>
       <li>tab one</li>
     </ul>
-
-    <script>
-      let li = document.querySelector('.home').querySelectorAll('li');
-
-      for (var i = 0; i < li.length; i++) {
-        li[i].addEventListener('mouseenter', function () {
-          this.style.backgroundColor = 'red';
-          this.style.color = '#fff';
-          this.innerHTML = '首页';
-        });
-        li[i].addEventListener('mouseleave', function () {
-          this.style.backgroundColor = '';
-          this.style.color = '';
-          this.innerHTML = 'home';
-        });
-      }
-    </script>
   </body>
 </html>
