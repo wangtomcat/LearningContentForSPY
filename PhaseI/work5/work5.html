@@ -36,7 +36,7 @@
         margin-top: 40px;
         border-bottom: 1px solid #fff;
       }
-      .bg {
+      li:hover {
         width: 300px;
         opacity: 1;
         background-size: contain;
@@ -74,17 +74,5 @@
         <p>上有天堂下有苏杭</p>
       </li>
     </ul>
-
-    <script>
-      let li = document.querySelectorAll('li');
-      for (var i = 0; i < li.length; i++) {
-        li[i].addEventListener('mouseenter', function () {
-          for (var i = 0; i < li.length; i++) {
-            li[i].className = '';
-          }
-          this.className = 'bg';
-        });
-      }
-    </script>
   </body>
 </html>
