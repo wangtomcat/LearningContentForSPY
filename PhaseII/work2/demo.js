@@ -22,6 +22,7 @@ for (let i = 1; i < arr.length; i++) {
 console.log(arr);
 
 // 选择排序;
+let arr = [12, 17, 9, 21, 3, 6, 25];
 for (var i = 0; i < arr.length; i++) {
   var key = i;
   for (var j = i + 1; j < arr.length; j++) {
@@ -34,6 +35,7 @@ for (var i = 0; i < arr.length; i++) {
 console.log(arr);
 
 // 快速排序
+
 function quick(arr) {
   if (arr.length <= 1) {
     return arr;

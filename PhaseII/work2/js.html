@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let newArr = [2, 9, 3, 8, 4, 0];
+      let buk = [];
+      for (let j = 0; j < newArr.length; j++) {
+        buk[newArr[j]] = 'abc';
+        // buk[2] = "abc"
+        // buk[9] = "abc"
+        // buk[3] = "abc"
+        // buk[8] = "abc"
+        // buk[4] = "abc"
+        // buk[0] = "abc"
+        // buk = ["abc", undefined, "abc", "abc", "abc", undefined, undefined, undefined, "abc", "abc"]
+      }
+      let arr = [];
+      for (let i = 0; i < buk.length; i++) {
+        if (buk[i]) {
+          arr.push(i);
+        }
+      }
+      console.log(arr);
+    </script>
+  </body>
+</html>
