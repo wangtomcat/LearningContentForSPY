@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+      }
+      .box {
+        background-color: red;
+        top: 10px;
+        left: 10px;
+      }
+      .box1 {
+        background-color: blue;
+        top: 80px;
+        left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="box1"></div>
+
+    <script>
+      let box = document.querySelector('.box');
+      let box1 = document.querySelector('.box1');
+
+      document.onkeydown = function (e) {
+        if (e.keyCode == 37 && box.offsetLeft > 10) {
+          box.style.left = box.offsetLeft - 5 + 'px';
+        } else if (e.keyCode == 38 && box.offsetTop > 10) {
+          box.style.top = box.offsetTop - 5 + 'px';
+        } else if (e.keyCode == 39) {
+          box.style.left = box.offsetLeft + 5 + 'px';
+        } else if (e.keyCode == 40) {
+          box.style.top = box.offsetTop + 5 + 'px';
+        }
+      };
+
+      box1.addEventListener('mousedown', function () {
+        document.addEventListener('mousemove', mouseUp);
+        box1.addEventListener('mouseup', function () {
+          console.log(1);
+          document.removeEventListener('mousemove', mouseUp);
+        });
+      });
+      function mouseUp(e) {
+        var left = e.clientX - box1.offsetWidth / 2;
+        var top = e.clientY - box1.offsetWidth / 2;
+        if (left <= 0) {
+          left = 0;
+        } else if (
+          left >=
+          document.documentElement.clientWidth - box1.offsetWidth
+        ) {
+          left = document.documentElement.clientWidth - box1.offsetWidth;
+        } else if (top <= 0) {
+          top = 0;
+        } else if (
+          top >=
+          document.documentElement.clientHeight - box1.offsetWidth
+        ) {
+          top = document.documentElement.clientHeight - box1.offsetWidth;
+        }
+        box1.style.left = left + 'px';
+        box1.style.top = top + 'px';
+      }
+    </script>
+  </body>
+</html>
