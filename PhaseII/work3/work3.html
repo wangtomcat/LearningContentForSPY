@@ -124,15 +124,15 @@
     <script>
       let nav = document.querySelectorAll('p');
       let ul = document.querySelectorAll('ul');
+      var key = 0;
       for (var i = 0; i < nav.length; i++) {
         let index = i;
-        nav[i].addEventListener('mouseenter', function () {
-          for (var i = 0; i < nav.length; i++) {
-            nav[i].className = '';
-            ul[i].className = '';
-          }
+        nav[i].addEventListener('click', function () {
+          nav[key].className = '';
+          ul[key].className = '';
           this.className = 'word';
           ul[index].className = 'pic';
+          key = index;
         });
       }
     </script>
