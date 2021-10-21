@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #box {
+        width: 800px;
+        height: 350px;
+        margin: 100px auto;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav p {
+        width: 25%;
+        background-color: rgb(230, 230, 230);
+        height: 40px;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      ul {
+        display: none;
+      }
+      li {
+        width: 180px;
+        height: 250px;
+        margin: 30px 10px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .pic {
+        display: flex;
+      }
+      .word {
+        color: #fff;
+        background-color: rgb(26, 164, 83);
+      }
+      .word {
+        color: #fff !important;
+        background-color: rgb(26, 164, 83) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div class="nav">
+        <p class="word">喜剧</p>
+        <p>剧情</p>
+        <p>动作</p>
+        <p>青春偶像</p>
+      </div>
+      <ul class="pic">
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let nav = document.querySelectorAll("p");
+      let ul = document.querySelectorAll("ul");
+      // 思考：既然两个循环都是对同一个元素对象处理，有没有可能只用一个循环就可以呢？
+      // for (var i = 0; i < nav.length; i++) {
+      //   nav[i].onclick = function () {
+      //     for (var v = 0; v < nav.length; v++) {
+      //       nav[v].className = "";
+      //       ul[v].className = "";
+      //       if (this == nav[v]) {
+      //         nav[v].className = "word";
+      //         ul[v].className = "pic";
+      //       }
+      //     }
+      //   };
+      // }
+
+      /*
+        答案肯定是有的；
+        想想两个for循环的意义；第一个for循环是给每个元素添加点击事件；
+                            第二个for循环是判断当前点击的事件跟所有的元素进行对比，看是否是此元素被点击了；
+        由此，我们在对同一元素对象进行遍历添加点击事件时，并且判断当前被点击的元素是哪个元素，从而加上相对应的样式效果；
+        解决：点击事件触发时，我们只要给被点击的元素添加效果，其它的去掉效果就好了；
+      */
+
+      for (var i = 0; i < nav.length; i++) {
+        nav[i].onclick = function () {
+          /*
+            这样我们只要用一个for循环就解决了问题
+            但是事实上，下面的这段重置，它依然是个for循环，右前面的1、2效果，它相当于clearClass 函数的
+            所以，这依然是可以被优化的点
+          */
+          nav[0].className = "";
+          nav[1].className = "";
+          nav[2].className = "";
+          nav[3].className = "";
+          ul[0].className = "";
+          ul[1].className = "";
+          ul[2].className = "";
+          ul[3].className = "";
+          nav[this.index].className = "word";
+          ul[this.index].className = "pic";
+        };
+      }
+    </script>
+  </body>
+</html>

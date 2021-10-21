@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #box {
+        width: 800px;
+        height: 350px;
+        margin: 100px auto;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav p {
+        width: 25%;
+        background-color: rgb(230, 230, 230);
+        height: 40px;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      ul {
+        display: none;
+      }
+      li {
+        width: 180px;
+        height: 250px;
+        margin: 30px 10px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .pic {
+        display: flex;
+      }
+      .word {
+        color: #fff;
+        background-color: rgb(26, 164, 83);
+      }
+      .word {
+        color: #fff !important;
+        background-color: rgb(26, 164, 83) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div class="nav">
+        <p class="word">喜剧</p>
+        <p>剧情</p>
+        <p>动作</p>
+        <p>青春偶像</p>
+      </div>
+      <ul class="pic">
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+        <li>
+          <img src="./img/pic_a.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+        <li>
+          <img src="./img/pic_b.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+        <li>
+          <img src="./img/pic_c.png" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+        <li>
+          <img src="./img/pic_d.png" />
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let nav = document.querySelectorAll("p");
+      let ul = document.querySelectorAll("ul");
+
+      /* 
+        因为我们并不知道上次哪个元素被点击了，所以最好的办法就是先对所有的元素重置；然后给被点击的元素加上效果；
+        那如果我们知道上一次被点击的元素是哪一个，我们就可以只对上一次被点击的元素重置，然后给被点击的元素添加效果；从而达到避免重复多余操作
+      */
+
+      var prevIndex = 0; //记录上次选中的下标
+      for (var i = 0; i < nav.length; i++) {
+        /*
+          保存此时的下标，如果内部直接使用i的话，会有问题；
+          在这个地方可以尝试下：不赋值，直接使用i；
+                            使用var赋值；
+                            使用let；
+          这三种的效果
+          然后再思考下：是否还有别的办法，解决因为这个造成的问题；
+        */
+        let key = i;
+        nav[i].onclick = function () {
+          // nav[0].className = "";
+          // nav[1].className = "";
+          // nav[2].className = "";
+          // nav[3].className = "";
+          // ul[0].className = "";
+          // ul[1].className = "";
+          // ul[2].className = "";
+          // ul[3].className = "";
+          nav[prevIndex].className = "";
+          ul[prevIndex].className = "";
+          nav[key].className = "word";
+          ul[key].className = "pic";
+          prevIndex = key; //更新上一次的下标
+        };
+      }
+    </script>
+  </body>
+</html>
