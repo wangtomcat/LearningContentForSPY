@@ -148,6 +148,7 @@
       */
 
       for (var i = 0; i < nav.length; i++) {
+        let key = i;
         nav[i].onclick = function () {
           /*
             这样我们只要用一个for循环就解决了问题
@@ -162,8 +163,8 @@
           ul[1].className = "";
           ul[2].className = "";
           ul[3].className = "";
-          nav[this.index].className = "word";
-          ul[this.index].className = "pic";
+          nav[key].className = "word";
+          ul[key].className = "pic";
         };
       }
     </script>
