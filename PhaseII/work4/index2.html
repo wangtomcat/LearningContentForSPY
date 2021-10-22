@@ -15,6 +15,7 @@
         left: 10px;
       }
     </style>
+    <script src="./move.js"></script>
   </head>
   <body>
     <div class="box1"></div>
@@ -23,34 +24,13 @@
       let box1 = document.querySelector('.box1');
 
       box1.addEventListener('mousedown', function () {
-        document.addEventListener('mousemove', mouseUp);
-        box1.addEventListener('mouseup', function () {
-          console.log(1);
-          document.removeEventListener('mousemove', mouseUp);
-        });
+        document.onmousemove = function () {
+          mouseUp(event, box1);
+        };
+        box1.onmouseup = function () {
+          document.onmousemove = null;
+        };
       });
-
-      function mouseUp(e) {
-        var left = e.clientX - box1.offsetWidth / 2;
-        var top = e.clientY - box1.offsetWidth / 2;
-        if (left <= 0) {
-          left = 0;
-        } else if (
-          left >=
-          document.documentElement.clientWidth - box1.offsetWidth
-        ) {
-          left = document.documentElement.clientWidth - box1.offsetWidth;
-        } else if (top <= 0) {
-          top = 0;
-        } else if (
-          top >=
-          document.documentElement.clientHeight - box1.offsetWidth
-        ) {
-          top = document.documentElement.clientHeight - box1.offsetWidth;
-        }
-        box1.style.left = left + 'px';
-        box1.style.top = top + 'px';
-      }
     </script>
   </body>
 </html>

@@ -15,6 +15,7 @@
         left: 0;
       }
     </style>
+    <script src="./position.js"></script>
   </head>
   <body>
     <div class="box"></div>
@@ -32,9 +33,11 @@
       // console.log(position);
 
       box.addEventListener('mousedown', function () {
-        document.addEventListener('mousemove', mouseUp);
-        box.addEventListener('mouseup', function () {
-          document.removeEventListener('mousemove', mouseUp);
+        document.onmousemove = function () {
+          mouseUp(event, box);
+        };
+        document.addEventListener('mouseup', function () {
+          this.onmousemove = null;
         });
       });
       btn.addEventListener('click', function () {
@@ -48,34 +51,6 @@
           }
         }, 30);
       });
-
-      function mouseUp(e) {
-        var left = e.clientX - box.offsetWidth / 2;
-        var top = e.clientY - box.offsetWidth / 2;
-        if (left <= 0) {
-          left = 0;
-        } else if (
-          left >=
-          document.documentElement.clientWidth - box.offsetWidth
-        ) {
-          left = document.documentElement.clientWidth - box.offsetWidth;
-        } else if (top <= 0) {
-          top = 0;
-        } else if (
-          top >=
-          document.documentElement.clientHeight - box.offsetWidth
-        ) {
-          top = document.documentElement.clientHeight - box.offsetWidth;
-        }
-        box.style.left = left + 'px';
-        box.style.top = top + 'px';
-        position.push({
-          X: left,
-          Y: top,
-        });
-        // console.log(left, top);
-        // console.log(position);
-      }
     </script>
   </body>
 </html>

@@ -26,6 +26,7 @@
         top: 14px;
       }
     </style>
+    <script src="./position.js"></script>
   </head>
   <body>
     <div class="circle"></div>
@@ -49,52 +50,27 @@
           Y: circle.offsetTop,
         },
       ];
+
       circle.addEventListener('mousedown', function () {
-        document.addEventListener('mousemove', mouseUp);
+        document.onmousemove = function () {
+          position = [];
+          mouseUp(event, circle);
+          for (var i = 0; i < spots.length; i++) {
+            position.forEach(function (value) {
+              timer = setTimeout(
+                function () {
+                  this.style.left = value.X + circle.offsetWidth / 2 + 'px';
+                  this.style.top = value.Y + circle.offsetWidth / 2 + 'px';
+                }.bind(spots[i]),
+                50 * i
+              );
+            });
+          }
+        };
         document.addEventListener('mouseup', function () {
-          document.removeEventListener('mousemove', mouseUp);
+          this.onmousemove = null;
         });
       });
-
-      function mouseUp(e) {
-        position = [];
-        var left = e.clientX - circle.offsetWidth / 2;
-        var top = e.clientY - circle.offsetWidth / 2;
-        if (left <= 0) {
-          left = 0;
-        } else if (
-          left >=
-          document.documentElement.clientWidth - circle.offsetWidth
-        ) {
-          left = document.documentElement.clientWidth - circle.offsetWidth;
-        } else if (top <= 0) {
-          top = 0;
-        } else if (
-          top >=
-          document.documentElement.clientHeight - circle.offsetWidth
-        ) {
-          top = document.documentElement.clientHeight - circle.offsetWidth;
-        }
-        circle.style.left = left + 'px';
-        circle.style.top = top + 'px';
-        position.push({
-          X: left,
-          Y: top,
-        });
-        // console.log(position);
-
-        for (var i = 0; i < spots.length; i++) {
-          position.forEach(function (value) {
-            timer = setTimeout(
-              function () {
-                this.style.left = value.X + circle.offsetWidth / 2 + 'px';
-                this.style.top = value.Y + circle.offsetWidth / 2 + 'px';
-              }.bind(spots[i]),
-              50 * i
-            );
-          });
-        }
-      }
     </script>
   </body>
 </html>
