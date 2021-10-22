@@ -33,4 +33,27 @@
     理解：每个函数都有__proto__属性，称为对象原型
          每个构造函数都有prototype属性，称为构造函数原型
          函数和构造函数有一个共有的属性constructor，用来指向构造函数自身
+
+#### 10-22
+     ES5新增方法：
+     数组方法：forEach()、filter()、some()
+     forEach() 常用于遍历数组
+     filter() 返回一个新数组，常用于筛选数组
+     some() 返回一个布尔值，用于检测数组中是否有满足条件的元素
+
+     字符串方法：trim()
+     trim() 删除字符串两端的空白字符，返回一个新的字符串
+
+     对象方法：Object.keys()、Object.defineproperty(obj,prop,descriptor)
+     Object.keys() 获取对象自身的全部属性
+     Object.defineproperty(obj,prop,descriptor) 定义新属性或修改原有属性
+     descriptor属性以对象的形式书写，包含四个属性值
+     value 设置属性值，默认undefind
+     writable 属性值是否可以重写 默认false
+     enumerable 属性是否会被遍历 默认false
+     configurable 属性是否可以被删除或再次修改 默认false
+
+
+
+           
     

@@ -18,15 +18,15 @@
         position: relative;
         border: 1px solid red;
         overflow: scroll;
+        /* transition: all 3s; */
       }
       ul {
-        width: 100%;
+        width: 1500px;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
         display: flex;
-        transition-duration: 3s;
       }
       li img {
         width: 150px;
@@ -66,35 +66,26 @@
         <li>
           <img src="./img12/05.jpg" />
         </li>
-        <li>
-          <img src="./img12/01.jpg" />
-        </li>
-        <li>
-          <img src="./img12/02.jpg" />
-        </li>
-        <li>
-          <img src="./img12/03.jpg" />
-        </li>
-        <li>
-          <img src="./img12/04.jpg" />
-        </li>
-        <li>
-          <img src="./img12/05.jpg" />
-        </li>
       </ul>
     </div>
 
     <script>
+      let box = document.querySelector('div');
       let ul = document.querySelector('ul');
-      let lis = ul.querySelectorAll('li');
+      let lis = box.querySelectorAll('li');
       var num = 0;
-      var timer = setInterval(function () {
+      setInterval(function () {
         num++;
-        if (num < lis.length - 3) {
-          ul.style.left = -num * lis[0].offsetWidth + 'px';
-        } else {
-          clearInterval(timer);
-        }
+        var timer = setInterval(function () {
+          if (box.scrollLeft > ul.scrollWidth / 2) {
+            box.scrollLeft = 0;
+            num = 0;
+          }
+          if (box.scrollLeft > lis[0].offsetWidth * num) {
+            clearInterval(timer);
+          }
+          box.scrollLeft++;
+        }, 20);
       }, 5000);
     </script>
   </body>

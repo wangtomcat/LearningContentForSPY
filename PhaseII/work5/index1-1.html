@@ -20,7 +20,7 @@
         overflow: scroll;
       }
       ul {
-        width: 100%;
+        width: 1500px;
         height: 100%;
         position: absolute;
         top: 0;
@@ -66,36 +66,18 @@
         <li>
           <img src="./img12/05.jpg" />
         </li>
-        <li>
-          <img src="./img12/01.jpg" />
-        </li>
-        <li>
-          <img src="./img12/02.jpg" />
-        </li>
-        <li>
-          <img src="./img12/03.jpg" />
-        </li>
-        <li>
-          <img src="./img12/04.jpg" />
-        </li>
-        <li>
-          <img src="./img12/05.jpg" />
-        </li>
       </ul>
     </div>
 
     <script>
-      let ul = document.querySelector('ul');
-      let lis = ul.querySelectorAll('li');
-      var num = 0;
-      var timer = setInterval(function () {
-        num++;
-        if (num < lis.length - 3) {
-          ul.style.left = -num * lis[0].offsetWidth + 'px';
-        } else {
-          clearInterval(timer);
+      let box = document.querySelector('div');
+      let ul = box.querySelector('ul');
+      setInterval(function () {
+        if (box.scrollLeft > ul.scrollWidth / 2) {
+          box.scrollLeft = 0;
         }
-      }, 5000);
+        box.scrollLeft++;
+      }, 20);
     </script>
   </body>
 </html>

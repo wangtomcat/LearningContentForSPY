@@ -123,8 +123,8 @@
     </div>
 
     <script>
-      let nav = document.querySelectorAll("p");
-      let ul = document.querySelectorAll("ul");
+      let nav = document.querySelectorAll('p');
+      let ul = document.querySelectorAll('ul');
       // 思考：既然两个循环都是对同一个元素对象处理，有没有可能只用一个循环就可以呢？
       // for (var i = 0; i < nav.length; i++) {
       //   nav[i].onclick = function () {
@@ -155,16 +155,16 @@
             但是事实上，下面的这段重置，它依然是个for循环，右前面的1、2效果，它相当于clearClass 函数的
             所以，这依然是可以被优化的点
           */
-          nav[0].className = "";
-          nav[1].className = "";
-          nav[2].className = "";
-          nav[3].className = "";
-          ul[0].className = "";
-          ul[1].className = "";
-          ul[2].className = "";
-          ul[3].className = "";
-          nav[key].className = "word";
-          ul[key].className = "pic";
+          nav[0].className = '';
+          nav[1].className = '';
+          nav[2].className = '';
+          nav[3].className = '';
+          ul[0].className = '';
+          ul[1].className = '';
+          ul[2].className = '';
+          ul[3].className = '';
+          nav[key].className = 'word';
+          ul[key].className = 'pic';
         };
       }
     </script>
