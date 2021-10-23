@@ -50,11 +50,12 @@
           Y: circle.offsetTop,
         },
       ];
-
+        // 随着鼠标动就可以了；没必要鼠标按下，抬起
       circle.addEventListener('mousedown', function () {
         document.onmousemove = function () {
           position = [];
           mouseUp(event, circle);
+          // 想想是否还有更简单的写法
           for (var i = 0; i < spots.length; i++) {
             position.forEach(function (value) {
               timer = setTimeout(

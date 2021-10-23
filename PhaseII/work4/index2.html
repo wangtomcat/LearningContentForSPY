@@ -22,7 +22,7 @@
 
     <script>
       let box1 = document.querySelector('.box1');
-
+      // 有问题，只能左右动，而且抬起鼠标并没有结束动作
       box1.addEventListener('mousedown', function () {
         document.onmousemove = function () {
           mouseUp(event, box1);

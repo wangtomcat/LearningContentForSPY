@@ -22,6 +22,7 @@
     <script>
       let box = document.querySelector('.box');
 
+      // 有点小问题，当向右、向下移动会一直走下去，能不能只在当前屏幕内移动，不超出
       document.onkeydown = function (e) {
         if (e.keyCode == 37 && box.offsetLeft > 10) {
           box.style.left = box.offsetLeft - 5 + 'px';
