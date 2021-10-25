@@ -42,7 +42,72 @@ for循环、while循环、do/while循环；
 特点：有规律性的重复操作、重复执行的代码极其相似；
 注：break、continue和return在循环中的意义
 ```
-### 三、函数
+### 三、数据类型
+1.基本类型数据
+```text
+五种基本类型：number、string 、boolean、null和undefined；
+注：虽然都是简单的数据类型，但是也有自身对应的方法；
+```
+2.对象：
+```JavaScript
+1）概念：对象是一组无序的键值对，是带有属性和方法的集合；对象就是无序的数据集合；
+2）作用：用于在单个变量中存储多个值；
+3）创建：
+ i.
+ var obj = {
+    name: '小明',
+    age: 18,
+    sayHi: function (){
+        alert('hi，大家好');
+    }
+ }
+ ii.
+ var obj1 = { };
+ obj1.name = '小明';
+ obj1.age = 18;
+ obj1.sayHi = function (){
+    alert('hi，大家好');
+ }
+ iii.
+ var obj2 = new Object();
+ obj2.name = '小明';
+ obj2.age = 18;
+ obj2.sayHi = function (){
+    alert('hi，大家好');
+ }
+4）使用：
+ i.对象.属性；对象.方法；
+ ii.对象[变量/字符串]
+```
+3.数组
+```JavaScript
+1）概念：数组就是有序的数据集合；
+2）作用：用于在单个变量中存储多个值；
+3）创建：
+ i.var arr1 = [ ];
+ ii.var arr2 = new Array( );
+ iii.var arr3 = new Array( size );
+ iiii.var arr4 = new Array( el1, el2, el3 ... );
+ 4）使用：数组[数字下标]
+注：数组是一种常见的数据格式，所以对应的方法有很多，以及因为它是有序的集合，所以产生了很多排序的方法，这些都是需要去了解的；
+```
+4.基本类型引用类型区别
+```text
+存储的区别：基本类型存放在栈当中；引用类型存放在堆当中；
+赋值的区别：基本类型可以直接赋值给另外的变量；而引用类型赋值，只是把引用地址指向了另外的变量；
+```
+5.特殊对象
+```text
+1.Math对象：用于执行数学任务；
+2.Date对象：用于处理日期与时间；
+3.BOM：浏览器对象模型（Browser Object Model），核心对象是window
+4.DOM：文档对象模型（Document Object Model），DOM是针对HTML和XML文档的一个API
+5.history对象：包含有关用户的访问历史记录；
+6.location对象：包含有关当前页面的URL信息；
+7.navigator对象：用于提供与用户浏览器相关的信息；
+8.screen对象：包含有关客户端显示屏幕的信息；
+```
+### 四、函数
 1.函数的概念
 ```text
 函数就是可重复执行的代码块
@@ -166,57 +231,4 @@ return 语句会终止当前函数的执行并返回函数的值。
  ii.this指向函数的调用者，这个函数一般叫声明函数，那谁调用这个函数this指的就是谁；
  iii.指向上级，为啥有这种情况，是因为有箭头函数以及匿名函数的出现，所以内部是没有this的，在内部使用了this，this指向的为上一级；
 ```
-### 四、数据类型
-1.对象：
-```JavaScript
-1）概念：对象是一组无序的键值对，是带有属性和方法的集合；对象就是无序的数据集合；
-2）作用：用于在单个变量中存储多个值；
-3）创建：
- i.
- var obj = {
-    name: '小错',
-    age: 18,
-    sayHi: function (){
-        alert('hi，大家好');
-    }
- }
- ii.
- var obj1 = { };
- obj1.name = '小错';
- obj1.age = 18;
- obj1.sayHi = function (){
-    alert('hi，大家好');
- }
- iii.
- var obj2 = new Object();
- obj2.name = '小错';
- obj2.age = 18;
- obj2.sayHi = function (){
-    alert('hi，大家好');
- }
-4）使用：
- i.对象.属性；对象.方法；
- ii.对象[变量/字符串]
-```
-2.数组
-```JavaScript
-1）概念：数组就是有序的数据集合；
-2）作用：用于在单个变量中存储多个值；
-3）创建：
- i.var arr1 = [ ];
- ii.var arr2 = new Array( );
- iii.var arr3 = new Array( size );
- iiii.var arr4 = new Array( el1, el2, el3 ... );
- 4）使用：数组[数字下标]
-注：数组是一种常见的数据格式，所以对应的方法有很多，以及因为它是有序的集合，所以产生了很多排序的方法，这些都是需要去了解的；
-```
-3.基本类型数据
-```text
-五种基本类型：number、string 、boolean、null和undefined；
-注：虽然都是简单的数据类型，但是也有自身对应的方法；
-```
-4.基本类型引用类型区别
-```text
-存储的区别：基本类型存放在栈当中；引用类型存放在堆当中；
-赋值的区别：基本类型可以直接赋值给另外的变量；而引用类型赋值，只是把引用地址指向了另外的变量；
-```
+
