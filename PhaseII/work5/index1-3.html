@@ -71,22 +71,26 @@
 
     <script>
       let box = document.querySelector('div');
-      let ul = document.querySelector('ul');
+      let ul = box.querySelector('ul');
       let lis = box.querySelectorAll('li');
       var num = 0;
-      setInterval(function () {
-        num++;
+      interval();
+      function interval() {
         var timer = setInterval(function () {
           if (box.scrollLeft > ul.scrollWidth / 2) {
             box.scrollLeft = 0;
-            num = 0;
+            num = 1;
           }
-          if (box.scrollLeft > lis[0].offsetWidth * num) {
+          if (box.scrollLeft >= lis[0].offsetWidth * num) {
             clearInterval(timer);
+            setTimeout(function () {
+              interval();
+              num++;
+            }, 1000);
           }
           box.scrollLeft++;
-        }, 10);
-      }, 3000);
+        }, 20);
+      }
     </script>
   </body>
 </html>

@@ -18,6 +18,7 @@
         position: relative;
         border: 1px solid red;
         overflow: scroll;
+        /* transition-delay: 2s; */
       }
       ul {
         width: 1500px;
@@ -72,9 +73,7 @@
     <script>
       let box = document.querySelector('div');
       let ul = box.querySelector('ul');
-      // 间断滚动你是不是搞错了，你仔细看下视频，间断，是有停留的；然后再继续翻下一张
-      // 你这个滚动就是连续滚动了，没有停留，相当于2的效果
-      setInterval(function () {
+      var timer = setInterval(function () {
         if (box.scrollLeft > ul.scrollWidth / 2) {
           box.scrollLeft = 0;
         }
