@@ -15,7 +15,7 @@
         left: 10px;
       }
     </style>
-    <script src="./move.js"></script>
+    <script src="./position.js"></script>
   </head>
   <body>
     <div class="box1"></div>
@@ -27,7 +27,7 @@
         document.onmousemove = function () {
           mouseUp(event, box1);
         };
-        box1.onmouseup = function () {
+        document.onmouseup = function () {
           document.onmousemove = null;
         };
       });
