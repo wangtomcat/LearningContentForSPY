@@ -11,8 +11,8 @@
         width: 50px;
         height: 50px;
         background-color: red;
-        top: 10px;
-        left: 10px;
+        top: 0px;
+        left: 0px;
         transition: all 0.3s;
       }
     </style>
@@ -25,22 +25,22 @@
 
       // 有点小问题，当向右、向下移动会一直走下去，能不能只在当前屏幕内移动，不超出
       document.onkeydown = function (e) {
-        if (e.keyCode == 37 && box.offsetLeft > 10) {
-          box.style.left = box.offsetLeft - 30 + 'px';
-        } else if (e.keyCode == 38 && box.offsetTop > 10) {
-          box.style.top = box.offsetTop - 30 + 'px';
+        if (e.keyCode == 37 && box.offsetLeft > box.offsetWidth) {
+          box.style.left = box.offsetLeft - 50 + 'px';
+        } else if (e.keyCode == 38 && box.offsetTop > box.offsetWidth) {
+          box.style.top = box.offsetTop - 50 + 'px';
         } else if (
           e.keyCode == 39 &&
-          box.offsetLeft <
-            document.documentElement.clientWidth - box.offsetWidth
+          box.offsetLeft <=
+            document.documentElement.clientWidth - box.offsetWidth * 2
         ) {
-          box.style.left = box.offsetLeft + 30 + 'px';
+          box.style.left = box.offsetLeft + 50 + 'px';
         } else if (
           e.keyCode == 40 &&
           box.offsetTop <
-            document.documentElement.clientHeight - box.offsetWidth
+            document.documentElement.clientHeight - box.offsetWidth * 2
         ) {
-          box.style.top = box.offsetTop + 30 + 'px';
+          box.style.top = box.offsetTop + 50 + 'px';
         }
       };
     </script>

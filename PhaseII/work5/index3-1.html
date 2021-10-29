@@ -11,21 +11,21 @@
         padding: 0;
         list-style: none;
       }
-
       .main {
         margin: 100px 600px 0;
-        overflow: hidden;
         width: 600px;
         height: 350px;
         position: relative;
-        /* display: flex; */
       }
       .ctn {
         width: 100%;
         height: 100%;
-        /* transition: all 0.3s; */
+        overflow: auto;
         display: flex;
         position: absolute;
+      }
+      .ctn::-webkit-scrollbar {
+        width: 0;
       }
       .ctn img {
         width: 600px;
@@ -34,7 +34,7 @@
       .arrow_l,
       .arrow_r {
         position: absolute;
-        /* z-index: 9; */
+        z-index: 9;
       }
       .arrow_l {
         left: 0;
@@ -121,61 +121,61 @@
             ol.children[i].className = '';
           }
           this.className = 'active';
-          animate(ctn, -i * ctn.children[0].offsetWidth);
+          animate(ctn, i * ctn.children[0].offsetWidth);
         });
       }
 
       // 点击左右箭头移动图片
       let num = 0;
       let circle = 0;
-      arrow_r.addEventListener('click', function () {
-        if (num == ctn.children.length - 1) {
-          ctn.style.left = 0;
-          num = 0;
-        }
-        num++;
-        animate(ctn, -num * ctn.children[0].offsetWidth);
-        circle++;
-        circle == ctn.children.length - 1 ? (circle = 0) : circle;
-        clear();
-      });
+      arrow_r.addEventListener('click', rgt);
       arrow_l.addEventListener('click', function () {
         if (num == 0) {
-          ctn.style.left =
-            -(ctn.children.length - 1) * ctn.children[0].offsetWidth + 'px';
+          ctn.scrollLeft =
+            (ctn.children.length - 1) * ctn.children[0].offsetWidth;
           num = ctn.children.length - 1;
         }
         num--;
-        animate(ctn, -num * ctn.children[0].offsetWidth);
+        animate(ctn, num * ctn.children[0].offsetWidth);
         circle--;
         circle = circle < 0 ? (circle = ol.children.length - 1) : circle;
         clear();
       });
 
-      // 自动播放图片
-      let timer = setInterval(function () {
-        arrow_r.click();
-      }, 2000);
+      // // 自动播放图片
+      var Itv = setInterval(rgt, 2000);
       main.addEventListener('mouseenter', function () {
-        clearInterval(timer);
+        clearInterval(Itv);
       });
       main.addEventListener('mouseleave', function () {
-        timer = setInterval(function () {
-          arrow_r.click();
-        }, 2000);
+        Itv = setInterval(rgt, 2000);
       });
+
+      // 右点击事件
+      function rgt() {
+        if (num == ctn.children.length - 1) {
+          ctn.scrollLeft = 0;
+          num = 0;
+        }
+        num++;
+        animate(ctn, num * ctn.children[0].offsetWidth);
+        circle++;
+        circle == ctn.children.length - 1 ? (circle = 0) : circle;
+        clear();
+      }
 
       // 动画效果
       function animate(obj, target) {
         clearInterval(obj.timer);
         obj.timer = setInterval(function () {
-          var step = (target - obj.offsetLeft) / 10;
+          var step = (target - obj.scrollLeft) / 10;
           step >= 0 ? (step = Math.ceil(step)) : (step = Math.floor(step));
-          if (obj.offsetLeft == target) {
+          if (obj.scrollLeft == target) {
             clearInterval(obj.timer);
           }
-          obj.style.left = obj.offsetLeft + step + 'px';
-        }, 20);
+          obj.scrollLeft = obj.scrollLeft + step;
+          console.log(step);
+        }, 10);
       }
 
       // 清空类名
