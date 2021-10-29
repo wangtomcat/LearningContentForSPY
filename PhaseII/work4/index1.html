@@ -25,22 +25,24 @@
 
       // 有点小问题，当向右、向下移动会一直走下去，能不能只在当前屏幕内移动，不超出
       document.onkeydown = function (e) {
-        if (e.keyCode == 37 && box.offsetLeft > box.offsetWidth) {
-          box.style.left = box.offsetLeft - 50 + 'px';
-        } else if (e.keyCode == 38 && box.offsetTop > box.offsetWidth) {
-          box.style.top = box.offsetTop - 50 + 'px';
-        } else if (
-          e.keyCode == 39 &&
-          box.offsetLeft <=
-            document.documentElement.clientWidth - box.offsetWidth * 2
-        ) {
-          box.style.left = box.offsetLeft + 50 + 'px';
-        } else if (
-          e.keyCode == 40 &&
-          box.offsetTop <
-            document.documentElement.clientHeight - box.offsetWidth * 2
-        ) {
-          box.style.top = box.offsetTop + 50 + 'px';
+        if (e.keyCode == 37) {
+          box.style.left =
+            box.offsetLeft - 50 <= 0 ? 0 : box.offsetLeft - 50 + 'px';
+        } else if (e.keyCode == 38) {
+          box.style.top =
+            box.offsetTop - 50 <= 0 ? 0 : box.offsetTop - 50 + 'px';
+        } else if (e.keyCode == 39) {
+          box.style.left =
+            box.offsetLeft + 50 >=
+            document.documentElement.clientWidth - box.offsetWidth
+              ? document.documentElement.clientWidth - box.offsetWidth + 'px'
+              : box.offsetLeft + 50 + 'px';
+        } else if (e.keyCode == 40) {
+          box.style.top =
+            box.offsetTop + 50 >=
+            document.documentElement.clientHeight - box.offsetWidth
+              ? document.documentElement.clientHeight - box.offsetWidth + 'px'
+              : box.offsetTop + 50 + 'px';
         }
       };
     </script>
