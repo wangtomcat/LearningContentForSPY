@@ -1,6 +1,6 @@
 function mouseUp(e, myBox) {
-  left = e.clientX - myBox.offsetWidth / 2;
-  top = e.clientY - myBox.offsetWidth / 2;
+  var left = e.clientX - myBox.offsetWidth / 2;
+  var top = e.clientY - myBox.offsetWidth / 2;
   if (left <= 0) {
     left = 0;
   } else if (left >= document.documentElement.clientWidth - myBox.offsetWidth) {
@@ -12,8 +12,4 @@ function mouseUp(e, myBox) {
   }
   myBox.style.left = left + 'px';
   myBox.style.top = top + 'px';
-  position.push({
-    X: left,
-    Y: top,
-  });
 }
