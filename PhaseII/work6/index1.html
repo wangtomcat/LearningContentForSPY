@@ -35,7 +35,6 @@
     <script>
       let box1 = document.querySelector('.box1');
       let box2 = document.querySelector('.box2');
-      console.log(box2.offsetLeft);
       box1.addEventListener('mousedown', function () {
         document.onmousemove = function () {
           mouseUp(event, box1);
@@ -44,8 +43,6 @@
           let box1_w = box1.offsetWidth;
           let box2_l = box2.offsetLeft;
           let box2_t = box2.offsetTop;
-
-          // console.log(box1.offsetLeft);
           if (box1_l + box1_w > box2_l && box1_t + box1_w > box2_t) {
             box2.style.backgroundColor = 'orange';
           }
