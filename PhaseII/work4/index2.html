@@ -25,6 +25,7 @@
       // 有问题，只能左右动，而且抬起鼠标并没有结束动作
       box1.addEventListener('mousedown', function () {
         document.onmousemove = function () {
+          // 有问题，你试着拖到四个角上看下，它是还可以继续拖出去的
           mouseUp(event, box1);
         };
         document.onmouseup = function () {
