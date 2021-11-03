@@ -80,36 +80,37 @@
       let mask = document.querySelector('.mask');
       let max = document.querySelector('.max');
       let bigPic = document.querySelector('.bigPic');
-      // 移动透明层
-      pic.addEventListener('mousemove', function (e) {
+      // 透明层显示与隐藏
+      pic.addEventListener('mouseover', function () {
         mask.style.display = 'block';
         max.style.display = 'block';
+      });
+      pic.addEventListener('mouseout', function () {
+        mask.style.display = 'none';
+        max.style.display = 'none';
+      });
+      // 移动透明层
+      pic.addEventListener('mousemove', function (e) {
         let maskX = e.pageX - pic.offsetLeft - mask.offsetWidth / 2;
         let maskY = e.pageY - pic.offsetTop - mask.offsetWidth / 2;
         let maskMax = pic.offsetWidth - mask.offsetWidth;
-        mask.addEventListener('mousemove', function () {
-          mask.style.left = maskX + 'px';
-          mask.style.top = maskY + 'px';
-        });
-        if (mask.offsetLeft <= 0) {
-          mask.style.left = 0;
-        } else if (mask.offsetLeft >= maskMax) {
-          mask.style.left = maskMax + 'px';
+        if (maskX <= 0) {
+          maskX = 0;
+        } else if (maskX >= maskMax) {
+          maskX = maskMax;
         }
-        if (mask.offsetTop <= 0) {
-          mask.style.top = 0;
-        } else if (mask.offsetTop >= maskMax) {
-          mask.style.top = maskMax + 'px';
+        if (maskY <= 0) {
+          maskY = 0;
+        } else if (maskY >= maskMax) {
+          maskY = maskMax;
         }
+        mask.style.left = maskX + 'px';
+        mask.style.top = maskY + 'px';
         // 图片等比例放大
         // 大图片移动距离 = 透明层移动距离 * 大图片最大移动距离 / 透明层最大移动距离
         let bigPicMax = bigPic.offsetWidth - max.offsetWidth;
         bigPic.style.left = (-mask.offsetLeft * bigPicMax) / maskMax + 'px';
         bigPic.style.top = (-mask.offsetTop * bigPicMax) / maskMax + 'px';
-      });
-      pic.addEventListener('mouseout', function () {
-        mask.style.display = 'none';
-        max.style.display = 'none';
       });
     </script>
   </body>

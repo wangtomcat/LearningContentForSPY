@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .content {
+        width: 600px;
+        height: 400px;
+        margin: 100px auto;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        position: relative;
+      }
+      .box div {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: red;
+      }
+
+      .random {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="box">
+        <div></div>
+      </div>
+    </div>
+
+    <script>
+      let ctn = document.querySelector('.content');
+      let box = document.querySelector('.box');
+      let snakes = Array.from(box.querySelectorAll('div'));
+      // 获取小盒子最大移动宽度&高度
+      let snakesMaxWidth = ctn.offsetWidth - snakes[0].offsetWidth;
+      let snakesMaxHeight = ctn.offsetHeight - snakes[0].offsetHeight;
+      // 随机生成食物
+      Random();
+      document.onkeydown = function (e) {
+        let random = document.querySelector('.random');
+        if (move(snakes[0], random)) {
+          random.style.backgroundColor = 'green';
+        } else {
+          random.style.backgroundColor = 'red';
+          snakes.push(random);
+          box.appendChild(random);
+          random.className = '';
+          Random();
+        }
+        for (let i = snakes.length - 1; i > 0; i--) {
+          snakes[i].style.left = snakes[i - 1].offsetLeft + 'px';
+          snakes[i].style.top = snakes[i - 1].offsetTop + 'px';
+        }
+        if (e.keyCode == 37) {
+          snakes[0].style.left =
+            snakes[0].offsetLeft - 10 <= 0
+              ? 0
+              : snakes[0].offsetLeft - 10 + 'px';
+        } else if (e.keyCode == 38) {
+          snakes[0].style.top =
+            snakes[0].offsetTop - 10 <= 0 ? 0 : snakes[0].offsetTop - 10 + 'px';
+        } else if (e.keyCode == 39) {
+          snakes[0].style.left =
+            snakes[0].offsetLeft >= snakesMaxWidth
+              ? snakesMaxWidth
+              : snakes[0].offsetLeft + 10 + 'px';
+        } else if (e.keyCode == 40) {
+          snakes[0].style.top =
+            snakes[0].offsetTop >= snakesMaxHeight
+              ? snakesMaxHeight
+              : snakes[0].offsetTop + 10 + 'px';
+        }
+      };
+
+      // 随机生成食物
+      function Random() {
+        let random = document.createElement('div');
+        ctn.appendChild(random);
+        random.className = 'random';
+        random.style.left = RandomNum(0, snakesMaxWidth) + 'px';
+        random.style.top = RandomNum(0, snakesMaxHeight) + 'px';
+        function RandomNum(min, max) {
+          return min + Math.round((max - min) * Math.random());
+        }
+      }
+      // 判断是否吃到食物
+      function move(el1, el2) {
+        let r1 = el1.offsetLeft + el1.offsetWidth;
+        b1 = el1.offsetTop + el1.offsetWidth;
+        l1 = el1.offsetLeft;
+        t1 = el1.offsetTop;
+        let l2 = el2.offsetLeft;
+        t2 = el2.offsetTop;
+        r2 = el2.offsetLeft + el2.offsetWidth;
+        b2 = el2.offsetTop + el2.offsetWidth;
+        if (r1 < l2 || b1 < t2 || l1 > r2 || t1 > b2) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

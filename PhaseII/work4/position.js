@@ -5,7 +5,8 @@ function mouseUp(e, myBox) {
     left = 0;
   } else if (left >= document.documentElement.clientWidth - myBox.offsetWidth) {
     left = document.documentElement.clientWidth - myBox.offsetWidth;
-  } else if (top <= 0) {
+  }
+  if (top <= 0) {
     top = 0;
   } else if (top >= document.documentElement.clientHeight - myBox.offsetWidth) {
     top = document.documentElement.clientHeight - myBox.offsetWidth;
