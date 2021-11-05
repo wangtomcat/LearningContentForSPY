@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .box {
+        width: 800px;
+        height: 405px;
+        margin: 100px auto;
+        display: flex;
+      }
+      .speed {
+        width: 153px;
+      }
+      p {
+        font-size: 20px;
+        color: orange;
+      }
+      .container {
+        /* width: 650px; */
+        border: 1px solid orange;
+        position: relative;
+      }
+      .move,
+      .food {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+      }
+      .move {
+        background-color: blue;
+      }
+      .food {
+        background-color: red;
+      }
+      li {
+        width: 15px;
+        height: 15px;
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="speed">
+        <p>
+          速度:
+          <span>1</span>
+        </p>
+        <button>开始游戏</button>
+      </div>
+      <ul class="container">
+        <div class="move"></div>
+      </ul>
+    </div>
+
+    <script>
+      let btn = document.querySelector('button');
+      let speed = document.querySelector('.speed').querySelector('span');
+      let ctn = document.querySelector('.container');
+      let move = document.querySelector('.move');
+      let num = 1;
+      let timer = null;
+      let keyData = {
+        speed: 300,
+        code: 39,
+      };
+      // 创建网格
+      let obj = {
+        size: 15,
+        x: 43,
+        y: 27,
+      };
+      ctn.style.width = obj.size * obj.x + 'px';
+      ctn.style.height = obj.size * obj.y + 'px';
+      for (let i = 0; i < obj.x * obj.y; i++) {
+        let li = document.createElement('li');
+        ctn.appendChild(li);
+      }
+      // 创建食物
+      RandomFood();
+      // 控制蛇的移动方向
+      document.addEventListener('keydown', direction);
+      // 点击按钮开启定时器
+      btn.addEventListener('click', function () {
+        timer = setInterval(start, keyData.speed);
+      });
+
+      // 开始游戏
+      function start() {
+        Food(document.querySelector('.food'));
+        moveBlock(move);
+        isOver(move, ctn);
+      }
+
+      // 创建食物
+      function RandomFood() {
+        let food = document.createElement('div');
+        food.className = 'food';
+        ctn.appendChild(food);
+        // 判断食物位置是否与蛇重叠
+        let foodX = RandomNum(0, obj.x - 1) * obj.size;
+        let foodY = RandomNum(0, obj.y - 1) * obj.size;
+        if (move.offsetLeft == foodX && move.offsetTop == foodY) {
+          foodX = RandomNum(0, obj.x - 1) * obj.size;
+          foodY = RandomNum(0, obj.y - 1) * obj.size;
+          n = -1;
+        }
+        food.style.left = foodX + 'px';
+        food.style.top = foodY + 'px';
+      }
+
+      // 判断是否吃到食物
+      function Food(food) {
+        let move_w = move.offsetWidth;
+        let move_t = move.offsetTop;
+        let move_l = move.offsetLeft;
+        if (
+          move_l == food.offsetLeft &&
+          (move_t + move_w == food.offsetTop ||
+            move_t - move_w == food.offsetTop) &&
+          (keyData.code == 38 || keyData.code == 40)
+        ) {
+          eatFood(food);
+        } else if (
+          move_t == food.offsetTop &&
+          (move_l + move_w == food.offsetLeft ||
+            move_l - move_w == food.offsetLeft) &&
+          (keyData.code == 37 || keyData.code == 39)
+        ) {
+          eatFood(food);
+        }
+      }
+
+      // 键盘控制方向
+      function direction(e) {
+        switch (e.keyCode) {
+          case 37:
+            if (keyData.code != 39) {
+              keyData.code = 37;
+            }
+            break;
+          case 38:
+            if (keyData.code != 40) {
+              keyData.code = 38;
+            }
+            break;
+          case 39:
+            if (keyData.code != 37) {
+              keyData.code = 39;
+            }
+            break;
+          case 40:
+            if (keyData.code != 38) {
+              keyData.code = 40;
+            }
+            break;
+        }
+      }
+      // 给移动方块赋值
+      function moveBlock(block) {
+        switch (keyData.code) {
+          case 37:
+            block.style.left = block.offsetLeft - obj.size + 'px';
+            break;
+          case 38:
+            block.style.top = block.offsetTop - obj.size + 'px';
+            break;
+          case 39:
+            block.style.left = block.offsetLeft + obj.size + 'px';
+            break;
+          case 40:
+            block.style.top = block.offsetTop + obj.size + 'px';
+            break;
+        }
+      }
+
+      // 判断是否结束
+      function isOver(el1, el2) {
+        // 撞到四周
+        if (el1.offsetLeft < 0) {
+          el1.style.left = 0;
+          over();
+        } else if (el1.offsetLeft > el2.offsetWidth - el1.offsetWidth) {
+          el1.style.left = el2.offsetWidth - el1.offsetWidth + 'px';
+          over();
+        } else if (el1.offsetTop < 0) {
+          el1.style.top = 0;
+          over();
+        } else if (el1.offsetTop > el2.offsetHeight - el1.offsetWidth) {
+          el1.style.top = el2.offsetHeight - el1.offsetWidth + 'px';
+          over();
+        }
+      }
+
+      // 吃食物
+      function eatFood(food) {
+        num++;
+        clearInterval(timer);
+        ctn.removeChild(food);
+        RandomFood();
+        speed.innerHTML = `${num}`;
+        keyData.speed = keyData.speed - 50;
+        timer = setInterval(start, keyData.speed);
+      }
+      // 生成随机数
+      function RandomNum(min, max) {
+        return min + Math.floor((max - min) * Math.random());
+      }
+      // 结束游戏
+      function over() {
+        alert('游戏结束！');
+        clearInterval(timer);
+      }
+    </script>
+  </body>
+</html>
