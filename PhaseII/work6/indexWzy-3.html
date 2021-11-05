@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #box {
+        height: 400px;
+        width: 600px;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+        position: relative;
+      }
+      .snake {
+        height: 18px;
+        width: 18px;
+        background: red;
+        position: absolute;
+        border: 1px solid #ccc;
+        top: 0;
+        left: 0;
+      }
+      .con {
+        height: 20px;
+        width: 20px;
+        background: green;
+        position: absolute;
+        top: 60px;
+        left: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div class="snake"></div>
+      <p class="con"></p>
+    </div>
+  </body>
+  <script>
+    var box = document.getElementById("box");
+    var snake = box.getElementsByClassName("snake");
+    var time = null;
+    var s = false, //上
+      x = false, //下
+      z = false, //左
+      y = true; //右 且默认为向右运动
+    var flagOver = true;
+
+    //判断游戏结束
+    function gameOver(left, top) {
+      // 碰到墙壁
+      if (left < 0 || left >= 600 || top < 0 || top >= 400) {
+        clearInterval(time);
+        alert("game over!点击确定后按“F5”重新开始游戏");
+        flagOver = false;
+      }
+      // 碰到自己
+      for (var i = 1; i < snake.length; i++) {
+        if (snake[i].offsetLeft == left && snake[i].offsetTop == top) {
+          clearInterval(time);
+          alert("game over!");
+          flagOver = false;
+        }
+      }
+    }
+    // 移动
+    function move(newSnake, left, top) {
+      gameOver(left, top);
+      if (!flagOver) return;
+      box.removeChild(snake[snake.length - 1]);
+      newSnake.style.top = top + "px";
+      newSnake.style.left = left + "px";
+      box.insertBefore(newSnake, snake[0]);
+    }
+    // init
+    time = setInterval(function () {
+      // 创建一个新的蛇头
+      var Nsnake = document.createElement("div");
+      Nsnake.className = "snake";
+      var currentLeft = snake[0].offsetLeft; //获取头部当前left
+      var currentTop = snake[0].offsetTop; //获取头部当前top
+      if (x) {
+        currentTop += 20;
+        move(Nsnake, currentLeft, currentTop);
+      }
+      if (y) {
+        currentLeft += 20;
+        move(Nsnake, currentLeft, currentTop);
+      }
+      if (s) {
+        currentTop -= 20;
+        move(Nsnake, currentLeft, currentTop);
+      }
+      if (z) {
+        currentLeft -= 20;
+        move(Nsnake, currentLeft, currentTop);
+      }
+    }, 200);
+
+    // 方向键
+    document.onkeydown = function (ev) {
+      var e = ev || window.event;
+      var time1, time2, tim3, time4;
+      function clear() {
+        clearTimeout(time1);
+        clearTimeout(time2);
+        clearTimeout(time3);
+        clearTimeout(time4);
+      }
+      switch (e.keyCode) {
+        case 37:
+          if (y) {
+            z = false;
+            y = true;
+            s = false;
+            x = false;
+          } else {
+            time1 = setTimeout(function () {
+              z = true;
+              y = false;
+              s = false;
+              x = false;
+            }, 50);
+          }
+          break;
+        case 38:
+          if (x) {
+            z = false;
+            y = false;
+            s = false;
+            x = true;
+          } else {
+            time2 = setTimeout(function () {
+              z = false;
+              y = false;
+              s = true;
+              x = false;
+            }, 50);
+          }
+          break;
+        case 39:
+          if (z) {
+            z = true;
+            y = false;
+            s = false;
+            x = false;
+          } else {
+            time3 = setTimeout(function () {
+              z = false;
+              y = true;
+              s = false;
+              x = false;
+            }, 50);
+          }
+          break;
+        case 40:
+          if (s) {
+            z = false;
+            y = false;
+            s = true;
+            x = false;
+          } else {
+            time4 = setTimeout(function () {
+              z = false;
+              y = false;
+              s = false;
+              x = true;
+            }, 50);
+          }
+          break;
+      }
+    };
+  </script>
+</html>
