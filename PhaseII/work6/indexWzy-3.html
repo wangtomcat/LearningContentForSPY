@@ -52,6 +52,74 @@
       y = true; //右 且默认为向右运动
     var flagOver = true;
 
+    function judge() {
+      //获取snake各个方向的距离
+      var snakeLeft = snake[0].offsetLeft;
+      var snakeRight = snake[0].offsetLeft + snake[0].offsetWidth;
+      var snakeTop = snake[0].offsetTop;
+      var snakeBottom = snake[0].offsetTop + snake[0].offsetHeight;
+      //获取food各个方向的距离
+      var food = box.getElementsByClassName("con")[0];
+      var foodLeft = food.offsetLeft;
+      var foodRight = food.offsetLeft + food.offsetWidth;
+      var foodTop = food.offsetTop;
+      var foodBottom = food.offsetTop + food.offsetHeight;
+      var leftEat, rigthEat, topEat, bottomEat;
+      if (
+        z &&
+        snakeLeft <= foodRight &&
+        !(
+          snakeRight <= foodLeft ||
+          snakeTop >= foodBottom ||
+          snakeBottom <= foodTop
+        )
+      ) {
+        leftEat = true;
+      } else {
+        leftEat = false;
+      }
+      if (
+        y &&
+        snakeRight >= foodLeft &&
+        !(
+          snakeLeft >= foodRight ||
+          snakeTop >= foodBottom ||
+          snakeBottom <= foodTop
+        )
+      ) {
+        rigthEat = true;
+      } else {
+        rigthEat = false;
+      }
+      if (
+        s &&
+        snakeTop <= foodBottom &&
+        !(
+          snakeLeft >= foodRight ||
+          snakeRight <= foodLeft ||
+          snakeBottom <= foodTop
+        )
+      ) {
+        topEat = true;
+      } else {
+        topEat = false;
+      }
+      if (
+        x &&
+        snakeBottom >= foodTop &&
+        !(
+          snakeLeft >= foodRight ||
+          snakeRight <= foodLeft ||
+          snakeTop >= foodBottom
+        )
+      ) {
+        bottomEat = true;
+      } else {
+        bottomEat = false;
+      }
+      return leftEat || rigthEat || topEat || bottomEat;
+    }
+
     //判断游戏结束
     function gameOver(left, top) {
       // 碰到墙壁
@@ -73,10 +141,25 @@
     function move(newSnake, left, top) {
       gameOver(left, top);
       if (!flagOver) return;
+      // 渲染蛇
       box.removeChild(snake[snake.length - 1]);
       newSnake.style.top = top + "px";
       newSnake.style.left = left + "px";
       box.insertBefore(newSnake, snake[0]);
+    }
+    // 吃到食物
+    function eatFood(newSnake, left, top) {
+      flagOver = true;
+      gameOver(left, top);
+      if (flagOver) {
+        newSnake.style.top = top + "px";
+        newSnake.style.left = left + "px";
+        box.insertBefore(newSnake, snake[0]);
+        // 移除
+        var con = box.getElementsByClassName("con")[0];
+        box.removeChild(con);
+        creat();
+      }
     }
     // init
     time = setInterval(function () {
@@ -87,21 +170,59 @@
       var currentTop = snake[0].offsetTop; //获取头部当前top
       if (x) {
         currentTop += 20;
-        move(Nsnake, currentLeft, currentTop);
+        if (judge()) {
+          eatFood(Nsnake, currentLeft, currentTop);
+        } else {
+          move(Nsnake, currentLeft, currentTop);
+        }
       }
       if (y) {
         currentLeft += 20;
-        move(Nsnake, currentLeft, currentTop);
+        if (judge()) {
+          eatFood(Nsnake, currentLeft, currentTop);
+        } else {
+          move(Nsnake, currentLeft, currentTop);
+        }
       }
       if (s) {
         currentTop -= 20;
-        move(Nsnake, currentLeft, currentTop);
+        if (judge()) {
+          eatFood(Nsnake, currentLeft, currentTop);
+        } else {
+          move(Nsnake, currentLeft, currentTop);
+        }
       }
       if (z) {
         currentLeft -= 20;
-        move(Nsnake, currentLeft, currentTop);
+        if (judge()) {
+          eatFood(Nsnake, currentLeft, currentTop);
+        } else {
+          move(Nsnake, currentLeft, currentTop);
+        }
       }
     }, 200);
+
+    //创建食物
+    function creat() {
+      var foodFlag = false;
+      do {
+        var left = parseInt(Math.random() * 30) * 20;
+        var top = parseInt(Math.random() * 20) * 20;
+        for (var i = 0; i < snake.length; i++) {
+          if (snake[i].offsetLeft == left && snake[i].offsetTop == top) {
+            foodFlag = true;
+            break;
+          } else {
+            foodFlag = false;
+          }
+        }
+      } while (foodFlag);
+      var newp = document.createElement("p");
+      newp.className = "con";
+      newp.style.left = left + "px";
+      newp.style.top = top + "px";
+      box.appendChild(newp);
+    }
 
     // 方向键
     document.onkeydown = function (ev) {
