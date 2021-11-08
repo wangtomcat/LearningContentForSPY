@@ -43,8 +43,8 @@
     </div>
   </body>
   <script>
-    var box = document.getElementById("box");
-    var snake = box.getElementsByClassName("snake");
+    var box = document.getElementById('box');
+    var snake = box.getElementsByClassName('snake');
     var time = null;
     var s = false, //上
       x = false, //下
@@ -59,7 +59,7 @@
       var snakeTop = snake[0].offsetTop;
       var snakeBottom = snake[0].offsetTop + snake[0].offsetHeight;
       //获取food各个方向的距离
-      var food = box.getElementsByClassName("con")[0];
+      var food = box.getElementsByClassName('con')[0];
       var foodLeft = food.offsetLeft;
       var foodRight = food.offsetLeft + food.offsetWidth;
       var foodTop = food.offsetTop;
@@ -125,14 +125,14 @@
       // 碰到墙壁
       if (left < 0 || left >= 600 || top < 0 || top >= 400) {
         clearInterval(time);
-        alert("game over!点击确定后按“F5”重新开始游戏");
+        alert('game over!点击确定后按“F5”重新开始游戏');
         flagOver = false;
       }
       // 碰到自己
       for (var i = 1; i < snake.length; i++) {
         if (snake[i].offsetLeft == left && snake[i].offsetTop == top) {
           clearInterval(time);
-          alert("game over!");
+          alert('game over!');
           flagOver = false;
         }
       }
@@ -143,8 +143,8 @@
       if (!flagOver) return;
       // 渲染蛇
       box.removeChild(snake[snake.length - 1]);
-      newSnake.style.top = top + "px";
-      newSnake.style.left = left + "px";
+      newSnake.style.top = top + 'px';
+      newSnake.style.left = left + 'px';
       box.insertBefore(newSnake, snake[0]);
     }
     // 吃到食物
@@ -152,11 +152,11 @@
       flagOver = true;
       gameOver(left, top);
       if (flagOver) {
-        newSnake.style.top = top + "px";
-        newSnake.style.left = left + "px";
+        newSnake.style.top = top + 'px';
+        newSnake.style.left = left + 'px';
         box.insertBefore(newSnake, snake[0]);
         // 移除
-        var con = box.getElementsByClassName("con")[0];
+        var con = box.getElementsByClassName('con')[0];
         box.removeChild(con);
         creat();
       }
@@ -164,8 +164,8 @@
     // init
     time = setInterval(function () {
       // 创建一个新的蛇头
-      var Nsnake = document.createElement("div");
-      Nsnake.className = "snake";
+      var Nsnake = document.createElement('div');
+      Nsnake.className = 'snake';
       var currentLeft = snake[0].offsetLeft; //获取头部当前left
       var currentTop = snake[0].offsetTop; //获取头部当前top
       if (x) {
@@ -217,10 +217,10 @@
           }
         }
       } while (foodFlag);
-      var newp = document.createElement("p");
-      newp.className = "con";
-      newp.style.left = left + "px";
-      newp.style.top = top + "px";
+      var newp = document.createElement('p');
+      newp.className = 'con';
+      newp.style.left = left + 'px';
+      newp.style.top = top + 'px';
       box.appendChild(newp);
     }
 
