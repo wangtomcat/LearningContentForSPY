@@ -122,19 +122,38 @@
     </div>
 
     <script>
-      let nav = document.querySelectorAll('p');
-      let ul = document.querySelectorAll('ul');
+      // let nav = document.querySelectorAll('p');
+      // let ul = document.querySelectorAll('ul');
+      // var key = 0;
+      // for (var i = 0; i < nav.length; i++) {
+      //   let index = i;
+      //   nav[i].addEventListener('click', function () {
+      //     nav[key].className = '';
+      //     ul[key].className = '';
+      //     this.className = 'word';
+      //     ul[index].className = 'pic';
+      //     key = index;
+      //   });
+      // }
+      var _this = null;
       var key = 0;
-      for (var i = 0; i < nav.length; i++) {
-        let index = i;
-        nav[i].addEventListener('click', function () {
-          nav[key].className = '';
-          ul[key].className = '';
-          this.className = 'word';
-          ul[index].className = 'pic';
-          key = index;
-        });
+      function Move(word, pic) {
+        this.nav = document.querySelectorAll(word);
+        this.pic = document.querySelectorAll(pic);
+        _this = this;
+        for (let i = 0; i < this.nav.length; i++) {
+          this.nav[i].index = i;
+          this.nav[i].onclick = this.click;
+        }
       }
+      Move.prototype.click = function (e) {
+        _this.nav[key].classList.remove('word');
+        _this.pic[key].classList.remove('pic');
+        this.className = 'word';
+        _this.pic[this.index].className = 'pic';
+        key = this.index;
+      };
+      new Move('p', 'ul');
     </script>
   </body>
 </html>

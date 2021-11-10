@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+
+    <script>
+      function Drag(id) {
+        this.box = document.getElementById(id);
+        let _this = this;
+        this.box.onmousedown = function () {
+          _this.mouseDown();
+        };
+        document.onmouseup = this.mouseUp;
+      }
+      Drag.prototype.mouseDown = function (ev) {
+        var e = ev || window.event;
+        this.offsetX = e.clientX - this.box.offsetLeft;
+        this.offsetY = e.clientY - this.box.offsetTop;
+        let _this = this;
+        document.onmousemove = function () {
+          _this.mouseMove();
+        };
+      };
+
+      Drag.prototype.mouseMove = function (ev) {
+        var e = ev || window.event;
+        let left = e.clientX - this.box.offsetWidth / 2;
+        let top = e.clientY - this.box.offsetWidth / 2;
+        let windowW = document.documentElement.clientWidth;
+        let windowH = document.documentElement.clientHeight;
+        if (left <= 0) {
+          left = 0;
+        } else if (left >= windowW - this.box.offsetWidth) {
+          left = windowW - this.box.offsetWidth;
+        }
+        if (top <= 0) {
+          top = 0;
+        } else if (top >= windowH - this.box.offsetWidth) {
+          top = windowH - this.box.offsetWidth;
+        }
+        this.box.style.left = left + 'px';
+        this.box.style.top = top + 'px';
+      };
+      Drag.prototype.mouseUp = function () {
+        document.onmousemove = null;
+      };
+
+      new Drag('box');
+    </script>
+  </body>
+</html>
