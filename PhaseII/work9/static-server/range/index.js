@@ -3,7 +3,7 @@ const {promisify} = require('util');
 const stat = promisify(fs.stat);
 
 module.exports = async (req, res, fullPath)=>{
-  // range: bytes=100-200
+  // range: bytes=100-50
   const {size} = await stat(fullPath);  //文件的字节总大小
   const range = req.headers['range'] || '';
   const sizes = range.match(/bytes=(\d*)-(\d*)/);
@@ -43,5 +43,6 @@ module.exports = async (req, res, fullPath)=>{
     max
   }
 }
+
 
 

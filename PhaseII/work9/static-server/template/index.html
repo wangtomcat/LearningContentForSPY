@@ -15,6 +15,18 @@
       var con = document.querySelector(".con");
 
       btn.onclick = function () {
+        // ajax('get','test.php','user=xiaocuo',function (data){
+        //     var json = JSON.parse(data);
+        //     if (json.err == 'true') {
+        //         con.innerHTML = json.msg;
+        //     } else {
+        //         con.innerHTML = 'name: '+json.name+', age: '+json.age+',sex: '+json.sex;
+        //     }
+        // },function (code){
+        //     alert('链接失败');
+        //     console.log(code);
+        // });
+
         ajax({
           data: "user=xiaocuo",
           url: "page.json",

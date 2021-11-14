@@ -16,10 +16,13 @@ server.on('request', (req, res)=>{
   const {pathname} = url.parse(req.url);
   // 根据请求路径，获得静态资源所在系统中的绝对路径
   let fullPath = path.join(conf.root, pathname);
-  // 解码
   fullPath = qs.unescape(fullPath);
+  
   // 处理请求
   routes(req, res, fullPath);
+  
+
+
 })
 
 
