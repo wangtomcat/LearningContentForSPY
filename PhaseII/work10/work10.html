@@ -10,9 +10,6 @@
         margin: 0;
         padding: 0;
       }
-      a {
-        text-decoration: none;
-      }
       .container {
         width: 700px;
         box-sizing: border-box;
@@ -41,27 +38,25 @@
         margin: 15px 15px 0;
         padding: 0 20px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
         background-color: rgb(184, 184, 184);
       }
-      .taskbar .taskName {
-        width: 300px;
-        height: 30px;
-        font-size: 16px;
-      }
-      .hide {
-        border-style: none;
-        background: none;
-      }
-      .taskbar a {
+      .taskbar span {
         color: red;
         font-size: 14px;
-        margin: 0 5px;
+        margin: 0 10px;
         visibility: hidden;
       }
-      .taskbar:hover a {
+      .taskbar p{
+        width: 450px;
+        line-height: 30px;
+        margin-left: 5px;
+      }
+      .taskbar:hover span {
         visibility: visible;
+      }
+      span:hover{
+        cursor: pointer;
       }
       .select {
         height: 40px;
@@ -69,7 +64,7 @@
         margin: 15px 15px 0;
         padding: 0 15px;
       }
-      .select a {
+      .select span {
         color: blue;
         font-size: 14px;
         margin-right: 25px;
@@ -80,6 +75,12 @@
       }
       .tfoot h2 {
         padding: 20px 0;
+      }
+      .taskName{
+        width: 450px;
+        line-height: 30px;
+        /* margin-left: 5px; */
+        font-size: 16px;
       }
       .complete_ipt{
         height: 40px;
@@ -100,41 +101,29 @@
         <input type="button" value="添加" class="add-btn"></input>
         <div class="taskList">
           <div class="taskbar">
-            <div class="left">
               <input type="checkbox" class="checkBox"/>
-              <input type="text" value="任务1" class="taskName hide" />
-            </div>
-            <div class="right">
-              <a href="javascript:;" class="modify">编辑</a>
-              <a href="javascript:;" class="delet">删除</a>
-            </div>
+              <p>任务1</p>
+              <span class="modify">编辑</span>
+              <span class="delet">删除</span>
           </div>
           <div class="taskbar">
-            <div class="left">
-              <input type="checkbox" class="checkBox"/>
-              <input type="text" value="任务2" class="taskName hide" />
-            </div>
-            <div class="right">
-              <a href="javascript:;" class="modify">编辑</a>
-              <a href="javascript:;" class="delet">删除</a>
-            </div>
+            <input type="checkbox" class="checkBox"/>
+            <p>任务2</p>
+            <span class="modify">编辑</span>
+            <span class="delet">删除</span>
           </div>
           <div class="taskbar">
-            <div class="left">
-              <input type="checkbox" class="checkBox"/>
-              <input type="text" value="任务3" class="taskName hide" />
-            </div>
-            <div class="right">
-              <a href="javascript:;" class="modify">编辑</a>
-              <a href="javascript:;" class="delet">删除</a>
-            </div>
+            <input type="checkbox" class="checkBox"/>
+            <p>任务3</p>
+            <span class="modify">编辑</span>
+            <span class="delet">删除</span>
           </div>
         </div>
         <div class="select">
           <input type="checkbox" class="select-btn"/>
-          <a href="javascript:;">选择全部</a>
-          <a href="javascript:;" class="complete">处理</a>
-          <a href="javascript:;" class="select-dlt">删除</a>
+          <span>选择全部</span>
+          <span class="complete">处理</span>
+          <span class="select-dlt">删除</span>
         </div>
       </div>
       <div class="tfoot">
@@ -144,108 +133,115 @@
 
     <script>
       let taskList = document.querySelector('.taskList');
-      let taskbar = document.getElementsByClassName('taskbar');
-      let checkBox = document.getElementsByClassName('checkBox')
-      let taskName = document.getElementsByClassName('taskName');
-      let modify = document.getElementsByClassName('modify');
-      let dlt = document.getElementsByClassName('delet');
-      let selectAll = document.querySelector('.select-btn')
-      let add_ipt = document.querySelector('.add-ipt')
-      let add_btn = document.querySelector('.add-btn')
-      let complete = document.querySelector('.complete')
-      let select_dlt = document.querySelector('.select-dlt')
       let completeList = document.querySelector('.tfoot')
-
-      focus(taskName)
+      let add_ipt = document.querySelector('.add-ipt')
+      const selectAll = document.querySelector('.select-btn')
+      const add_btn = document.querySelector('.add-btn')
+      const complete = document.querySelector('.complete')
+      const select_dlt = document.querySelector('.select-dlt')
+      let flag = true
+     
       // 添加任务
       add_btn.onclick = function(){
         if(add_ipt.value != ''){
-          let newTaskbar = taskbar[0].cloneNode(true)
+          let newTaskbar = document.createElement('div')
+          newTaskbar.className = 'taskbar'
+          newTaskbar.innerHTML = ` 
+            <input type="checkbox" class="checkBox"/>
+            <p>任务3</p>
+            <span class="modify">编辑</span>
+            <span class="delet">删除</span> `
           taskList.appendChild(newTaskbar)
-          taskName[taskList.children.length-1].value = add_ipt.value
-          checkBox[taskList.children.length-1].checked = false
+          newTaskbar.children[1].innerHTML = add_ipt.value
+          newTaskbar.children[0].checked = false
           add_ipt.value = ''
         }else{
           alert('请输入任务名噢~')
         }
-        focus(taskName)
+        // 判断是否全选
         isSelectAll()
       }
 
       // 修改taskbar
       taskList.onclick = function(e){
-        for(let i = 0; i < taskbar.length; i++){
+        let oTaskbar = taskList.querySelectorAll('.taskbar');
+        let modify = document.querySelectorAll('.modify');
+        let dlt = document.querySelectorAll('.delet');
+        for(let i = 0; i < dlt.length; i++){
           // 删除taskbar
           if (e.target == dlt[i]) {
-          // this.removeChild(taskbar[i])
-          taskbar[i].style.display = 'none';
+          this.removeChild(oTaskbar[i])
           }
           // 修改taskName
           if (e.target == modify[i]) {
-            taskName[i].focus();
+            let str = oTaskbar[i].children[1].innerHTML
+            oTaskbar[i].children[1].innerHTML = '<input type="text"/>'
+            let selectIpt = oTaskbar[i].children[1].children[0]
+            selectIpt.className = 'taskName'
+            selectIpt.value = str
+            selectIpt.focus()
+            // 设置失去焦点事件
+            selectIpt.onblur = function(){
+              oTaskbar[i].children[1].innerHTML = selectIpt.value
+            }
           }
           // 点击checkbox
-          if(e.target == checkBox[i]){
-            for(let i = 0;i<checkBox.length;i++){
-              checkBox[i].onclick = isSelectAll
-            }
+          if(e.target == oTaskbar[i].children[0]){
+            isSelectAll()
           }
         }
       }
       // 删除taskbar
       select_dlt.onclick = function(){
-        for(let i = 0; i < checkBox.length; i++){
-          if(checkBox[i].checked){
-            // taskList.removeChild(taskbar[i])
-            taskbar[i].style.display = 'none';
+        let oTaskbar = taskList.querySelectorAll('.taskbar');
+        for(let i = 0; i < oTaskbar.length; i++){
+          if(oTaskbar[i].children[0].checked){
+            taskList.removeChild(oTaskbar[i])
           }
+        }
+        oTaskbar = taskList.querySelectorAll('.taskbar');
+        if(oTaskbar.length < 1){
+          flag = false
+          selectAll.checked = flag
         }
       }
 
       // 设置全选
       selectAll.onclick = function(){
-        console.log(1);
+        let checkBox = document.querySelectorAll('.checkBox')
         for(let i = 0;i<checkBox.length;i++){
           checkBox[i].checked = this.checked
-          console.log(checkBox[i].checked);
         }
       }
      
       //  设置已处理任务
       complete.onclick = function(){
-        console.log(checkBox.length);
-        for(let i = 0; i < checkBox.length; i++){
-          console.log(checkBox.length);
-          console.log(checkBox[i].checked);
-          if(checkBox[i].checked){
-            let complete_ipt = document.createElement('div')
-            complete_ipt.className = 'complete_ipt'
-            complete_ipt.innerHTML = taskName[i].value
-            completeList.appendChild(complete_ipt)
-            taskList.removeChild(taskbar[i])
+        let oTaskbar = taskList.querySelectorAll('.taskbar');
+          for(let i = 0; i < oTaskbar.length; i++){
+            if(oTaskbar[i].children[0].checked){
+              let complete_ipt = document.createElement('div')
+              complete_ipt.className = 'complete_ipt'
+              complete_ipt.innerHTML = oTaskbar[i].children[1].innerHTML
+              completeList.appendChild(complete_ipt)
+              taskList.removeChild(oTaskbar[i])
+            }
           }
-        }
+          oTaskbar = taskList.querySelectorAll('.taskbar')
+          if(oTaskbar.length < 1){
+            flag = false
+           selectAll.checked = flag
+          }
       }
-    //  设置获取焦点状态
-      function focus(oTask){
-        for (let i = 0; i < oTask.length; i++) {
-          oTask[i].onfocus = function(){
-            oTask[i].classList.remove('hide')
-          }
-          oTask[i].onblur = function(){
-            oTask[i].className = 'taskName hide'
-          }
-        }
-      }
+   
     // 判断是否全选
       function isSelectAll(){
+        let checkBox = document.querySelectorAll('.checkBox')
         var flag = true;
-        for(let j = 0;j<checkBox.length;j++){
-          if(!checkBox[j].checked){
+        for(let i = 0;i <checkBox.length;i++){
+          if(!checkBox[i].checked){
             flag = false
           }
         }
-        
         selectAll.checked = flag
       }
     </script>

@@ -1,3 +1,41 @@
 {
-  "model":[{"a":1231e3}]
+  "model": [{ "a": 1231e3 }],
+  "list": [
+    {
+      "name": "a",
+      "url": [
+        "./img/pic_a.png",
+        "./img/pic_a.png",
+        "./img/pic_a.png",
+        "./img/pic_a.png"
+      ]
+    },
+    {
+      "name": "b",
+      "url": [
+        "./img/pic_b.png",
+        "./img/pic_b.png",
+        "./img/pic_b.png",
+        "./img/pic_b.png"
+      ]
+    },
+    {
+      "name": "c",
+      "url": [
+        "./img/pic_c.png",
+        "./img/pic_c.png",
+        "./img/pic_c.png",
+        "./img/pic_c.png"
+      ]
+    },
+    {
+      "name": "d",
+      "url": [
+        "./img/pic_d.png",
+        "./img/pic_d.png",
+        "./img/pic_d.png",
+        "./img/pic_d.png"
+      ]
+    }
+  ]
 }
