@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 700px;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 0 20px;
+        background-color: rgb(231, 231, 231);
+      }
+      .tbody {
+        display: flex;
+        flex-direction: column;
+      }
+      h2 {
+        padding: 15px 0;
+        text-align: center;
+      }
+      .add-btn{
+        width: 60px;
+        height: 30px;
+      }
+      .add-ipt {
+        width: 550px;
+        height: 25px;
+      }
+      .taskbar {
+        height: 40px;
+        margin: 15px 15px 0;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        background-color: rgb(184, 184, 184);
+      }
+      .taskbar span {
+        color: red;
+        font-size: 14px;
+        margin: 0 10px;
+        visibility: hidden;
+      }
+      .taskbar p{
+        width: 450px;
+        line-height: 30px;
+        margin-left: 5px;
+      }
+      .taskbar:hover span {
+        visibility: visible;
+      }
+      span:hover{
+        cursor: pointer;
+      }
+      .select {
+        height: 40px;
+        line-height: 40px;
+        margin: 15px 15px 0;
+        padding: 0 15px;
+      }
+      .select span {
+        color: blue;
+        font-size: 14px;
+        margin-right: 25px;
+      }
+      .tfoot {
+        margin-top: 40px;
+        padding-bottom:10px ;
+      }
+      .tfoot h2 {
+        padding: 20px 0;
+      }
+      .taskName{
+        width: 450px;
+        line-height: 30px;
+        /* margin-left: 5px; */
+        font-size: 16px;
+      }
+      .complete_ipt{
+        height: 40px;
+        margin: 0 15px 10px;
+        padding: 0 10px;
+        color: rgb(136, 136, 136);
+        display: flex;
+        align-items: center;
+        background-color: rgb(184, 184, 184);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="tbody">
+        <h2>待办任务列表</h2>
+        <input type="text" class="add-ipt" />
+        <input type="button" value="添加" class="add-btn"></input>
+        <div class="taskList">
+          <div class="taskbar">
+              <input type="checkbox" class="checkBox"/>
+              <p>任务1</p>
+              <span class="modify">编辑</span>
+              <span class="delet">删除</span>
+          </div>
+          <div class="taskbar">
+            <input type="checkbox" class="checkBox"/>
+            <p>任务2</p>
+            <span class="modify">编辑</span>
+            <span class="delet">删除</span>
+          </div>
+          <div class="taskbar">
+            <input type="checkbox" class="checkBox"/>
+            <p>任务3</p>
+            <span class="modify">编辑</span>
+            <span class="delet">删除</span>
+          </div>
+        </div>
+        <div class="select">
+          <input type="checkbox" class="select-btn"/>
+          <span>选择全部</span>
+          <span class="complete">处理</span>
+          <span class="select-dlt">删除</span>
+        </div>
+      </div>
+      <div class="tfoot">
+        <h2>已处理任务列表</h2>
+      </div>
+    </div>
+
+    <script>
+     
+      function Tab(taskList,completeList,add_btn,add_ipt){
+        this.taskList = taskList
+        this.completeList = completeList
+        this.add_btn = add_btn
+        this.add_ipt = add_ipt
+        this.selectAll = selectAll
+        this.complete = complete
+        this.select_dlt = select_dlt
+        this.index = 0
+        this.flag = true
+      }
+      // 添加任务
+      Tab.prototype.addTab = function(checkBox){
+        let oCheckBox = checkBox
+        var _this = this
+        this.add_btn.onclick = function(){
+          console.log(checkBox);
+          if(_this.add_ipt.value != ''){
+            let newTaskbar = document.createElement('div')
+            newTaskbar.className = 'taskbar'
+            newTaskbar.innerHTML = ` 
+              <input type="checkbox" class="checkBox"/>
+              <p>任务3</p>
+              <span class="modify">编辑</span>
+              <span class="delet">删除</span> `
+            _this.taskList.appendChild(newTaskbar)
+            newTaskbar.children[1].innerHTML = add_ipt.value
+            newTaskbar.children[0].checked = false
+            _this.add_ipt.value = ''
+          }else{
+            alert('请输入任务名噢~')
+          }
+          _this.isSelectAllTab(oCheckBox)
+        }
+      }
+      // 操作任务
+      Tab.prototype.modifyTab = function(event,Taskbar,Modify,Delete,CheckBox){
+        let oTaskbar = Taskbar
+        let oModify = Modify
+        let oDelete = Delete
+        let oCheckBox = CheckBox
+        var _this = this
+        this.taskList.onclick = function(event){
+          var e = event
+          _this.oTaskbar = document.querySelectorAll(oTaskbar);
+          _this.oModify = document.querySelectorAll(oModify);
+          _this.oDelete = document.querySelectorAll(oDelete);
+          for(let i = 0;i < _this.oTaskbar.length;i++){
+             if(e.target == _this.oDelete[i]){
+               _this.index = i
+               _this.deleteTaskTab(oCheckBox)
+             }
+             if(e.target == _this.oModify[i]){
+              _this.index = i
+              _this.modifyTaskTab()
+             }
+             if(e.target == _this.oTaskbar[i].children[0]){
+              _this.isSelectAllTab(oCheckBox)
+             }
+          }
+        }
+      }
+      // 删除任务
+      Tab.prototype.deleteTaskTab = function(oCheckBox){
+        this.taskList.removeChild(this.oTaskbar[this.index])
+        this.isSelectAllTab(oCheckBox)
+      }
+      // 编辑任务
+      Tab.prototype.modifyTaskTab = function(){
+        let str = this.oTaskbar[this.index].children[1].innerHTML
+        this.oTaskbar[this.index].children[1].innerHTML = '<input type="text"/>'
+        let selectIpt = this.oTaskbar[this.index].children[1].children[0]
+        selectIpt.className = 'taskName'
+        selectIpt.value = str
+        selectIpt.focus()
+        var _this = this
+        // 设置失去焦点事件
+        selectIpt.onblur = function(){
+          _this.oTaskbar[_this.index].children[1].innerHTML = selectIpt.value
+        }
+      }
+      // 判断是否全选
+      Tab.prototype.isSelectAllTab = function(checkBox){
+        this.checkBox = document.querySelectorAll(checkBox)
+        let flag = true
+        for(let i = 0;i <this.checkBox.length;i++){
+          if(!this.checkBox[i].checked){
+            flag = false
+          }
+        }
+        this.selectAll.checked = flag
+      }
+      // 设置全选
+      Tab.prototype.SelectAllTab = function (checkBox){
+        let oCheckBox = checkBox
+        var _this = this
+        this.selectAll.onclick = function(){
+          _this.checkBox = document.querySelectorAll(oCheckBox)
+          for(let i = 0;i< _this.checkBox.length;i++){
+            _this.checkBox[i].checked = _this.selectAll.checked
+          }
+        }
+      }
+      // 多选删除
+      Tab.prototype.selectDeleteTab = function(Taskbar){
+        let oTaskbar = Taskbar
+        var _this = this
+        this.select_dlt.onclick = function(){
+          _this.oTaskbar = document.querySelectorAll(oTaskbar);
+          for(let i = 0; i < _this.oTaskbar.length; i++){
+            if(_this.oTaskbar[i].children[0].checked){
+              _this.taskList.removeChild(_this.oTaskbar[i])
+            }
+          }
+          _this.oTaskbar = document.querySelectorAll(oTaskbar);
+          if(_this.oTaskbar.length < 1){
+            _this.flag = false
+            _this.selectAll.checked = _this.flag
+          }
+        }
+      }
+      //  设置已处理任务
+      Tab.prototype.completeTab = function(Taskbar){
+        let oTaskbar = Taskbar
+        var _this = this
+        this.complete.onclick = function(){
+          _this.oTaskbar = document.querySelectorAll(oTaskbar);
+            for(let i = 0; i < _this.oTaskbar.length; i++){
+              if(_this.oTaskbar[i].children[0].checked){
+                let complete_ipt = document.createElement('div')
+                complete_ipt.className = 'complete_ipt'
+                complete_ipt.innerHTML = _this.oTaskbar[i].children[1].innerHTML
+                completeList.appendChild(complete_ipt)
+                _this.taskList.removeChild(_this.oTaskbar[i])
+              }
+            }
+          _this.oTaskbar = document.querySelectorAll(oTaskbar)
+          if(_this.oTaskbar.length < 1){
+            _this.flag = false
+           _this.selectAll.checked = _this.flag
+          }
+        }
+      }
+      
+      let taskList = document.querySelector('.taskList');
+      let completeList = document.querySelector('.tfoot')
+      let add_ipt = document.querySelector('.add-ipt')
+      const selectAll = document.querySelector('.select-btn')
+      const add_btn = document.querySelector('.add-btn')
+      const complete = document.querySelector('.complete')
+      const select_dlt = document.querySelector('.select-dlt')
+
+      var newTab = new Tab(taskList,completeList,add_btn,add_ipt,selectAll,complete,select_dlt)
+      newTab.addTab('.checkBox')
+      newTab.modifyTab(event,'.taskbar','.modify','.delet','.checkBox')
+      newTab.selectDeleteTab('.taskbar')
+      newTab.SelectAllTab('.checkBox')
+      newTab.completeTab('.taskbar')
+    
+    </script>
+  </body>
+</html>

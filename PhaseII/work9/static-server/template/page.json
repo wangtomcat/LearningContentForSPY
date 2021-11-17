@@ -4,37 +4,37 @@
     {
       "name": "a",
       "url": [
-        "./img/pic_a.png",
-        "./img/pic_a.png",
-        "./img/pic_a.png",
-        "./img/pic_a.png"
+        "../assets/pic_a.png",
+        "../assets/pic_a.png",
+        "../assets/pic_a.png",
+        "../assets/pic_a.png"
       ]
     },
     {
       "name": "b",
       "url": [
-        "./img/pic_b.png",
-        "./img/pic_b.png",
-        "./img/pic_b.png",
-        "./img/pic_b.png"
+        "../assets/pic_b.png",
+        "../assets/pic_b.png",
+        "../assets/pic_b.png",
+        "../assets/pic_b.png"
       ]
     },
     {
       "name": "c",
       "url": [
-        "./img/pic_c.png",
-        "./img/pic_c.png",
-        "./img/pic_c.png",
-        "./img/pic_c.png"
+        "../assets/pic_c.png",
+        "../assets/pic_c.png",
+        "../assets/pic_c.png",
+        "../assets/pic_c.png"
       ]
     },
     {
       "name": "d",
       "url": [
-        "./img/pic_d.png",
-        "./img/pic_d.png",
-        "./img/pic_d.png",
-        "./img/pic_d.png"
+        "../assets/pic_d.png",
+        "../assets/pic_d.png",
+        "../assets/pic_d.png",
+        "../assets/pic_d.png"
       ]
     }
   ]

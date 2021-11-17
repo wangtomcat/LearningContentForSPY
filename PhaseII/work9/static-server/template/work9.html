@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>删除</button>
+    <script>
+      // cookie
+      // 格式：name = value;[expires=data];[path=path];[domain=somewhere.com];[secure]
+      // [expires=data]设置过期时间，必须填写日期对象  系统会自动清除过期的cookie
+      // [path=path] 限制访问路径，默认为当前加载文件的路径，
+      //             如果设置的cookie路径和加载文件的路径不一致则cookie访问失败
+      // [domain=somewhere.com] 限制访问域名，默认为当前加载文件的服务器域名/ip
+      //                        如果加载当前文件的域名和设置的域名不一致，则设置cookie失败
+      // [secure]
+
+      // encodeURIComponent() 将中文解码成对应字符
+      // decodeURIComponent() 将对应字符翻译成中文
+
+      // 设置cookie
+      function setCookie(name, value, { expires, path, domain, secure }) {
+        var cookieStr =
+          encodeURIComponent(name) + '=' + encodeURIComponent(value);
+        if (expires) {
+          cookieStr += ';expires=' + afterOfDate(expires);
+        }
+        if (path) {
+          cookieStr += ';path=' + path;
+        }
+        if (domain) {
+          cookieStr += ';domain=' + domain;
+        }
+        if (secure) {
+          cookieStr += ';secure';
+        }
+        document.cookie = cookieStr;
+      }
+
+      // 获取cookie
+      function getCookie(name) {
+        var cookieStr = decodeURIComponent(document.cookie);
+        var start = cookieStr.indexOf(name + '=');
+        if (start == -1) {
+          return null;
+        } else {
+          var end = cookieStr.indexOf(';', start);
+          if (end == -1) {
+            end = cookieStr.length;
+          }
+          var str = cookieStr.substr(start, end);
+          var arr = str.split('=');
+          return arr[1];
+          // alert(str);
+        }
+      }
+      // 删除cookie
+      function removeCookie(name, value) {
+        document.cookie =
+          decodeURIComponent(name) +
+          '=' +
+          decodeURIComponent(value) +
+          ';expires=' +
+          afterOfDate(-1);
+      }
+      // 获取过期时间
+      function afterOfDate(n) {
+        let d = new Date();
+        let day = d.getDate();
+        d.setDate(n + day);
+        return d;
+      }
+
+      setCookie('aaaa', 'bbbb', {
+        expires: 7,
+      });
+
+      let btn = document.querySelector('button');
+      btn.onclick = function () {
+        removeCookie('aaaa', 'bbbb');
+      };
+    </script>
+  </body>
+</html>
