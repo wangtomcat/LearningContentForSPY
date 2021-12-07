@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "url": "./my-text/public/img/pic-a.jpeg"
+    },
+    {
+      "id": 2,
+      "url": "./my-text/public/img/pic-b.jpeg"
+    },
+    {
+      "id": 3,
+      "url": "./my-text/public/img/pic-c.jpeg"
+    }
+  ]
+}
