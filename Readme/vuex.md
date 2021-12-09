@@ -7,7 +7,7 @@ mutations:用来储存修改state中的状态的方法,支持同步
           外部组件通过this.$store.commit('方法名')来调用mutations中的方法
 actions: 常用来储存调取接口的方法,然后通过调用mutations中的方法来修改state中的状态值支持异步,同步
          外部组件通过this.$store.dispatch('方法名',参数)来调用actions中的方法
-modules
+modules 
 
 vuex 新写法
 原理:将store中的状态和方法copy到当前组件内
